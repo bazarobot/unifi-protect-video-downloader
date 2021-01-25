@@ -311,34 +311,6 @@ def download_footage(camera_id, camera_name, bearer_token):
         download_file(address, filename, bearer_token)
         first_download = False
 
-        # use the same API Authentication Token (login session) for set number of downloads only (default: 10)
-        if downloads_with_current_api_auth == int(args.max_downloads_with_auth):
-            print("API Authentication Token has been used for " + str(downloads_with_current_api_auth) +
-                  " download(s) - requesting new session token...")
-
-            # get new API auth bearer token and access key
-            api_auth_bearer_token = get_api_auth_bearer_token(str(args.username), str(args.password))
-            api_access_key = get_api_access_key(api_auth_bearer_token)
-            downloads_with_current_api_auth = 1
-            downloads_with_current_api_key = 1
-        else:
-            print("API Authentication Token has been used for " + str(downloads_with_current_api_auth) +
-                  " download(s). Maximum is set to " + str(args.max_downloads_with_auth) + ".")
-            downloads_with_current_api_auth += 1
-
-        # use the same API Access Key for set number of downloads only (default: 3)
-        if downloads_with_current_api_key == int(args.max_downloads_with_key):
-            print("API Access Key has been used for " + str(downloads_with_current_api_key) +
-                  " download(s) - requesting new access key...")
-
-            # request new access key
-            api_access_key = get_api_access_key(api_auth_bearer_token)
-            downloads_with_current_api_key = 1
-        else:
-            print("API Access Key has been used for " + str(downloads_with_current_api_key) +
-                  " download(s). Maximum is set to " + str(args.max_downloads_with_key) + ".")
-            downloads_with_current_api_key += 1
-
 
 def download_snapshot(camera_id, camera_name):
     global api_auth_bearer_token, api_access_key
